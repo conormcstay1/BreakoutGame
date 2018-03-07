@@ -4,6 +4,9 @@ var canvas = document.getElementById("myCanvas");
 //the ctx variable set up the second context so we can paint on it 
 var ctx = canvas.getContext("2d");
 
+//Counting the score
+var score = 0;
+
 //Setup other variables for the ball size and position
 var ballRadius = 10;
 var x = canvas.width/2;
@@ -105,11 +108,20 @@ function collisionDetection(){
 				if(x > b.x && x < b.x+brickWidth && y > b.y && y < b.y+brickHeight){
 					dy = -dy;
 					b.status = 0;
+					score +=10;
 				}
 			}
         }
     }
 }
+
+//Counting the score
+function drawScore(){
+	ctx.font = "16px Arial";
+	ctx.fillStyle = "#0095DD";
+	ctx.fillText("Score: "+score, 8, 20);
+	document.getElementById("gamescore").innerHTML = "Score: " + score;
+}	
 
 //draw the bricks
 function draw(){
@@ -118,6 +130,7 @@ function draw(){
     drawBall();
     drawPaddle();
 	collisionDetection();
+	drawScore();
 	
 //Bounce the ball off three walls - if it drops off the bottom - GAME OVER!	
 if(x + dx > canvas.width-ballRadius || x + dx < ballRadius){
