@@ -7,6 +7,11 @@ var ctx = canvas.getContext("2d");
 //Counting the score
 var score = 0;
 
+//Game sounds
+var WINNING_SOUND = new Audio('sounds/woohoo.wav');
+var SCORE_SOUND = new Audio('sounds/success.wav');
+var GAMEOVER_SOUND = new Audio('sounds/gameover.wav');
+
 //Setup other variables for the ball size and position
 var ballRadius = 10;
 var x = canvas.width/2;
@@ -109,7 +114,9 @@ function collisionDetection(){
 					dy = -dy;
 					b.status = 0;
 					score++;
+					SCORE_SOUND.play();
 					if(score == brickRowCount*brickColumnCount){
+						WINNING_SOUND.play();
 						alert("YOU WIN, CONGRATULATIONS!");
 						document.location.reload();
 					}	
@@ -146,8 +153,9 @@ if(y + dy < ballRadius){
 	//Check if the ball is hitting the paddle
 	if(x > paddleX && x < paddleX + paddleWidth){
 			dy = -dy;
-		}				
-	else{	
+	}				
+	else{
+		GAMEOVER_SOUND.play();	
 		alert("GAME OVER");
 		document.location.reload();
 	}	
