@@ -108,7 +108,11 @@ function collisionDetection(){
 				if(x > b.x && x < b.x+brickWidth && y > b.y && y < b.y+brickHeight){
 					dy = -dy;
 					b.status = 0;
-					score +=10;
+					score++;
+					if(score == brickRowCount*brickColumnCount){
+						alert("YOU WIN, CONGRATULATIONS!");
+						document.location.reload();
+					}	
 				}
 			}
         }
